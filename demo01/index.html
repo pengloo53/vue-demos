@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello Vue!</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{ message }}</p>
+    <p><span :title="now">鼠标放上去试试，刷新一下再试</span></p>
+    <p>后面有个按钮（打开控制台，给 app.seen 变量赋值） <button v-if="seen">我是妖怪</button></p>
+    <p>我的任务代办（打开控制台，给 app.todolist push 一个对象试试）</p>
+    <ol>
+      <li v-for="todo in todolist">
+        {{ todo.title }}
+        <small>{{ todo.desc }}</small>
+      </li>
+    </ol>
+    <p>做个照妖镜，显示妖怪：<button v-on:click="showBtn">{{ btnLabel }}</button></p>
+    <p>做个扩声器，你说啥，我说啥：<input type="text" v-model="saysay" placeholder="说点什么吧"></p>
+    <h3>{{ saysay }}</h3>
+    <p> 我是组件，不是 HTML 自带标签</p>
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post title="Blogging with Vue"></blog-post>
+    <blog-post title="Why Vue is so fun"></blog-post>
+
+    <user-info name="user.name" career="user.career"></user-info>
+  </div>
+</body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  // 向子组件传个字符串
+  Vue.component('blog-post', {
+    props: ['title'],
+    template: '<h3>{{ title }}</h3>'
+  })
+  // 向子组件传个对象
+  Vue.component('user-info', {
+    props: ['name','career'],
+    template: '<p>Hi, I am {{ name }}，I am a <b>{{ career }}</b></p>'
+  });
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello, World',
+      now: '页面加载于 ' + new Date().toLocaleString(),
+      seen: false,
+      todolist: [
+        { title: '买番茄', desc: '一定要红色的' },
+        { title: '买馒头', desc: '要大个的' }
+      ],
+      btnLabel: '照妖镜开启',
+      saysay: '',
+      // 给子组件的数据
+      user: {
+        name: '张三', 
+        career: '木匠'
+      }
+    },
+    methods: {
+      showBtn: function(){
+        this.seen = this.seen?false:true;
+        this.btnLabel = '照妖镜关闭';
+      }
+    }
+  });
+
+</script>
+</html>

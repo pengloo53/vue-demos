@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Component</title>
+</head>
+<body>
+  <div id="components-demo">
+    <button-counter></button-counter>
+    <todo-list></todo-list>
+  </div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+// 定义一个名为 button-counter 的新组件
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
+Vue.component('todo-list', {
+  data: function(){
+    return {
+      todolist: [
+        { title: '我是老大' },
+        { title: '我是老二' },
+        { title: '我是老幺' }
+      ]
+    }
+  },
+  template: '<ol><li v-for="todo in todolist">{{ todo.title }}</li></ol>'
+});
+new Vue({ el: '#components-demo' })
+</script>
+</body>
+
+</html>
